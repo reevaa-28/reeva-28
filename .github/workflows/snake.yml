@@ -2,11 +2,14 @@ name: Generate Snake
 
 on:
   schedule:
-    - cron: "0 */12 * * *"
+    - cron: "0 0 * * *"
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
-  build:
+  generate:
     runs-on: ubuntu-latest
 
     steps:
@@ -15,7 +18,8 @@ jobs:
           github_user_name: reevaa-28
           outputs: dist/github-contribution-grid-snake.svg
 
-      - uses: crazy-max/ghaction-github-pages@v4
+      - name: Push snake
+        uses: crazy-max/ghaction-github-pages@v4
         with:
           target_branch: output
           build_dir: dist
